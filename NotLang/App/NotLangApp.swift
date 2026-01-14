@@ -25,7 +25,7 @@ struct NotLangApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(postRows: [.sample, .sample2])
         }
         .modelContainer(sharedModelContainer)
     }

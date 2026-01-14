@@ -6,18 +6,21 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-//    @Query private var items: [Item]
+    var postRows: [PostRowView]
 
     var body: some View {
-        
+        ScrollView {
+            LazyVStack() {
+                ForEach(postRows) { post in
+                    post
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+    ContentView(postRows: [.sample, .sample2])
 }

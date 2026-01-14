@@ -8,8 +8,11 @@
 import SwiftUI
 import WrappingHStack
 
-struct PostRowView: View {
+struct PostRowView: View, Identifiable {
     let langPost: LangPost
+    var id: UUID {
+        langPost.id
+    }
     
     var body: some View {
         VStack(spacing: 10) {
@@ -20,7 +23,7 @@ struct PostRowView: View {
                 Spacer()
             }
             
-            WrappingHStack(langPost.content, id: \.self, spacing: .constant(1)) {
+            WrappingHStack(langPost.content, id: \.self, spacing: .constant(3.5)) {
                 TranslationChunkView(chunk: $0)
             }
             
@@ -35,85 +38,14 @@ struct PostRowView: View {
         }
         .background(.blue)
         .padding()
-        .background(.green)
+        .background(.blue)
+        .clipShape(RoundedRectangle(cornerRadius: 35))
         .padding()
+        
         
     }
 }
 
-
-/*
- TODO:
-  - add animation (potentially scale) when chunk is tapped
-  - add logic for explicit spaces
- */
-struct TranslationChunkView: View {
-    let chunk: TranslationChunk
-    @State private var isShowingTranslation = false
-    
-    var body: some View {
-        Text("\(isShowingTranslation ? chunk.translation : chunk.text)")
-            .onTapGesture {
-            withAnimation(.spring) {
-                isShowingTranslation.toggle()
-            }
-        }
-        .padding(.horizontal, 2)
-            .overlay(
-                Rectangle()
-                    .stroke(
-                        Color.black,
-                        style: StrokeStyle(lineWidth: 2, dash: [5, 5])
-                    )
-                    .opacity(chunk.isPhrase ? 0.2 : 0)
-            )
-            .foregroundStyle(isShowingTranslation ? .indigo : .black)
-    }
-}
-
-struct EngagementStackView: View {
-    var body: some View {
-        HStack {
-            Spacer()
-            EngagementItemView(systemName: "text.bubble", count: 13)
-            Spacer()
-            EngagementItemView(systemName: "arrow.2.squarepath", count: 2)
-            Spacer()
-            EngagementItemView(systemName: "heart", count: 34)
-            Spacer()
-        }
-    }
-}
-
-struct EngagementItemView: View {
-    var systemName: String
-    var count: Int
-    
-    var body: some View {
-        HStack(spacing: 3) {
-            Button() { } label: {
-                Image(systemName: systemName)
-                    .foregroundStyle(.black)
-            }
-            Text("\(count)")
-                .font(.footnote)
-        }
-    }
-}
-
 #Preview {
-    let post = LangPost(
-        author: "Amier",
-        content: [
-            TranslationChunk(text: "Je t'aime",
-                             translation: "I love you",
-                             isPhrase: true
-                            ),
-            TranslationChunk(text: "tellement",
-                             translation: "so much",
-                             isPhrase: false
-                            ),
-        ]
-    )
-    PostRowView(langPost: post)
+    PostRowView(langPost: .sample)
 }
