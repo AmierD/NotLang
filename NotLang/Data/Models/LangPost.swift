@@ -11,7 +11,7 @@ import Foundation
 struct LangPost: Identifiable {
     let id: UUID = UUID()
     
-    /// The username of the author of the post
+    /// The username of the author of the post.
     let author: String
     /// The text content of the post, represented as an array of ``TranslationChunk``s.
     let content: [TranslationChunk]

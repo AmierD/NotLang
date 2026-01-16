@@ -34,7 +34,11 @@ struct PostRowView: View, Identifiable {
                 Spacer()
             }
             
-            EngagementStackView()
+            EngagementStackView(
+                comments: Int.random(in: 1...40),
+                reposts: Int.random(in: 1...25),
+                likes: Int.random(in: 20...500)
+            )
         }
         .background(.blue)
         .padding()

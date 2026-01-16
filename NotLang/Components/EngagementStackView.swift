@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct EngagementStackView: View {
+    @State var comments: Int
+    @State var reposts: Int
+    @State var likes: Int
+    
     var body: some View {
         HStack {
             Spacer()
-            EngagementItemView(systemName: "text.bubble", count: 13)
+            EngagementItemView(systemName: "text.bubble", count: comments)
             Spacer()
-            EngagementItemView(systemName: "arrow.2.squarepath", count: 2)
+            EngagementItemView(systemName: "arrow.2.squarepath", count: reposts)
             Spacer()
-            EngagementItemView(systemName: "heart", count: 34)
+            EngagementItemView(systemName: "heart", count: likes)
             Spacer()
         }
     }
