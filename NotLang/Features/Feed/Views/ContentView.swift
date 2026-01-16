@@ -8,19 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
-    var postRows: [PostRowView]
+    var feedViewModel = FeedViewModel()
 
     var body: some View {
         ScrollView {
             LazyVStack() {
-                ForEach(postRows) { post in
-                    post
+                ForEach(feedViewModel.posts) { post in
+                    PostRowView(langPost: post)
                 }
             }
+        }
+        .task {
+            await feedViewModel.fetchPosts()
         }
     }
 }
 
 #Preview {
-    ContentView(postRows: [.sample, .sample2])
+    ContentView()
 }
