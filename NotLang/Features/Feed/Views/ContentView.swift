@@ -11,16 +11,7 @@ struct ContentView: View {
     var feedViewModel = FeedViewModel()
 
     var body: some View {
-        ScrollView {
-            LazyVStack() {
-                ForEach(feedViewModel.posts) { post in
-                    PostRowView(langPost: post)
-                }
-            }
-        }
-        .task {
-            await feedViewModel.fetchPosts()
-        }
+        FeedView()
     }
 }
 

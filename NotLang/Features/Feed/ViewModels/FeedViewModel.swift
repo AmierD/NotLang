@@ -16,6 +16,7 @@ class FeedViewModel {
     
     var posts: [LangPost] = []
     
+    // TODO: Add logic for fetching new posts
     func fetchPosts() async {
         isLoading = true
         
