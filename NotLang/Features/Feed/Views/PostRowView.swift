@@ -51,5 +51,5 @@ struct PostRowView: View, Identifiable {
 }
 
 #Preview {
-    PostRowView(langPost: .sample)
+    PostRowView(langPost: .bakeryOrder)
 }

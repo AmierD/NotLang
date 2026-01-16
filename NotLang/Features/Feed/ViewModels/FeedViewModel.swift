@@ -22,8 +22,22 @@ class FeedViewModel {
         
         try? await Task.sleep(for: .seconds(2))
         
-        self.posts.append(LangPost.sample)
-        self.posts.append(LangPost.sample2)
+        let newPosts = [
+            LangPost.generalGreeting,
+            LangPost.bakeryOrder,
+            LangPost.travelPost,
+            LangPost.cityLove,
+            LangPost.weatherUpdate,
+            LangPost.positiveResponse,
+            LangPost.spanishGreeting,
+            LangPost.coffeeLover,
+            LangPost.japaneseIntro,
+            LangPost.italianGratitude,
+            LangPost.frenchQuestion,
+            LangPost.socialMeeting
+        ]
+        
+        self.posts.append(contentsOf: newPosts)
         isLoading = false
     }
 }
