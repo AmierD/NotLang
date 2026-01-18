@@ -7,8 +7,7 @@
 
 import Foundation
 
-// French only:
-
+// MARK: - French Translation Chunks
 extension TranslationChunk {
     // Conversational Chunks
     static let bonjour = TranslationChunk(text: "Bonjour", translation: "Hello", isPhrase: false)
@@ -28,46 +27,12 @@ extension TranslationChunk {
     static let jaime = TranslationChunk(text: "J'aime", translation: "I love", isPhrase: false)
     static let paris = TranslationChunk(text: "Paris", translation: "Paris", isPhrase: false)
     
-    
     // Time & Weather
     static let ilFaitBeau = TranslationChunk(text: "Il fait beau", translation: "The weather is nice", isPhrase: true)
     static let aujourdhui = TranslationChunk(text: "aujourd'hui", translation: "today", isPhrase: false)
 }
 
-extension LangPost {
-    static let generalGreeting = LangPost(
-        author: "Chloe",
-        content: [.bonjour, .commentCaVa]
-    )
-    
-    static let bakeryOrder = LangPost(
-        author: "Pierre",
-        content: [.jeVoudrais, .unCroissant, .silVousPlait]
-    )
-    
-    static let travelPost = LangPost(
-        author: "Amier",
-        content: [.laTourEiffel, .estMagnifique]
-    )
-    
-    static let cityLove = LangPost(
-        author: "Lucie",
-        content: [.jaime, .paris, .tellement] // "I love Paris so much"
-    )
-    
-    static let weatherUpdate = LangPost(
-        author: "Jean",
-        content: [.ilFaitBeau, .aujourdhui]
-    )
-    
-    static let positiveResponse = LangPost(
-        author: "Marie",
-        content: [.caVaBien, .merci] // Assuming a 'merci' chunk exists
-    )
-}
-
-// Language specific samples
-
+// MARK: - Multi-Language Translation Chunks
 extension TranslationChunk {
     // Spanish Samples
     static let hola = TranslationChunk(text: "Hola", translation: "Hello", isPhrase: false)
@@ -90,34 +55,105 @@ extension TranslationChunk {
     static let toutLeMonde = TranslationChunk(text: "tout le monde", translation: "everyone", isPhrase: true)
 }
 
+// MARK: - LangPost Samples
 extension LangPost {
+    // French Posts
+    static let generalGreeting = LangPost(
+        author: "Chloe",
+        topic: "Greetings",
+        content: [.bonjour, .commentCaVa]
+    )
+    
+    static let bakeryOrder = LangPost(
+        author: "Pierre",
+        topic: "Dining",
+        content: [.jeVoudrais, .unCroissant, .silVousPlait]
+    )
+    
+    static let travelPost = LangPost(
+        author: "Amier",
+        topic: "Sightseeing",
+        content: [.laTourEiffel, .estMagnifique]
+    )
+    
+    static let cityLove = LangPost(
+        author: "Lucie",
+        topic: "Lifestyle",
+        content: [.jaime, .paris, .tellement]
+    )
+    
+    static let weatherUpdate = LangPost(
+        author: "Jean",
+        topic: "Weather",
+        content: [.ilFaitBeau, .aujourdhui]
+    )
+    
+    static let positiveResponse = LangPost(
+        author: "Marie",
+        topic: "Small Talk",
+        content: [.caVaBien, .merci]
+    )
+    
+    // International Posts
     static let spanishGreeting = LangPost(
         author: "Elena",
+        topic: "Greetings",
         content: [.hola, .comoEstas]
     )
     
     static let coffeeLover = LangPost(
         author: "Marco",
+        topic: "Food & Drink",
         content: [.meGusta, .elCafe]
     )
     
     static let japaneseIntro = LangPost(
         author: "Yuki",
+        topic: "Greetings",
         content: [.konnichiwa, .ogenki]
     )
     
     static let italianGratitude = LangPost(
         author: "Luca",
+        topic: "Etiquette",
         content: [.grazie, .mille]
     )
     
     static let frenchQuestion = LangPost(
         author: "Sophie",
+        topic: "Directions",
         content: [.ouEst, .laBibliotheque]
     )
     
     static let socialMeeting = LangPost(
         author: "Amier",
+        topic: "Social",
         content: [.enchanté, .toutLeMonde]
     )
+}
+
+extension LangPost {
+    static func mockFromAI() -> LangPost {
+        let jsonString = #"""
+            {
+                "author": "Léa, influenceuse lifestyle à Paris",
+                "topic": "Un café trop cher et pas bon",
+                "content": [
+                    { "text": "Franchement,", "translation": "Honestly,", "isPhrase": false },
+                    { "text": "le nouveau coffee shop", "translation": "the new coffee shop", "isPhrase": true },
+                    { "text": "c’est une grosse douille.", "translation": "it's a total rip-off.", "isPhrase": true }
+                ]
+            }
+            """#
+        
+        let jsonData = Data(jsonString.utf8)
+        let decoder = JSONDecoder()
+        
+        do {
+            return try decoder.decode(LangPost.self, from: jsonData)
+        } catch {
+            print("Decoding error: \(error)")
+            return LangPost(author: "Error", topic: "N/A", content: [])
+        }
+    }
 }

@@ -23,6 +23,7 @@ class FeedViewModel {
         try? await Task.sleep(for: .seconds(2))
         
         let newPosts = [
+            LangPost.mockFromAI(),
             LangPost.generalGreeting,
             LangPost.bakeryOrder,
             LangPost.travelPost,
