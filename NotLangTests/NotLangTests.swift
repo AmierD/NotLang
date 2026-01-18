@@ -10,8 +10,13 @@ import Testing
 
 struct NotLangTests {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    @Test("Validate that Mock JSON LangPost decoding produces a valid post")
+    func test_mockJSONLangPost_successfullyDecodesToLangPost() async throws {
+        let post = await LangPost.mockJSONLangPost()
+        
+        #expect(post.author != "Error")
+        #expect(post.topic != "N/A")
+        #expect(!post.content.isEmpty)
     }
 
 }

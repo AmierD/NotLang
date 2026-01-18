@@ -132,8 +132,10 @@ extension LangPost {
     )
 }
 
+
 extension LangPost {
-    static func mockFromAI() -> LangPost {
+    /// Source of truth for current JSON implementation of LangPost.
+    static func mockJSONLangPost() -> LangPost {
         let jsonString = #"""
             {
                 "author": "Léa, influenceuse lifestyle à Paris",
