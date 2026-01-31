@@ -11,7 +11,11 @@ struct ContentView: View {
     var feedViewModel = FeedViewModel()
 
     var body: some View {
-        FeedView()
+        TabView {
+            Tab("Home", systemImage: "house") {
+                FeedView()
+            }
+        }
     }
 }
 

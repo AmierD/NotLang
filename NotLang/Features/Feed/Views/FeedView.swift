@@ -24,7 +24,7 @@ struct FeedView: View {
                 }
                 // TODO: make ScrollView refreshable
                 ScrollView {
-                    LazyVStack() {
+                    LazyVStack {
                         ForEach(feedViewModel.posts) { post in
                             PostRowView(langPost: post)
                         }

@@ -28,6 +28,7 @@ struct PostRowView: View, Identifiable {
                         .fixedSize()
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             
             HStack {
                 Spacer()
