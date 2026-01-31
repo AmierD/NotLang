@@ -22,10 +22,10 @@ struct TranslationChunkView: View {
     var body: some View {
         Text("\(isShowingTranslation ? chunk.translation : chunk.text)")
             .onTapGesture {
-            withAnimation(.spring) {
-                isShowingTranslation.toggle()
+                withAnimation(.spring) {
+                    isShowingTranslation.toggle()
+                }
             }
-        }
         .padding(.horizontal, 2)
             .overlay(
                 Rectangle()

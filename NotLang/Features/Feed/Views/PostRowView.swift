@@ -22,9 +22,11 @@ struct PostRowView: View, Identifiable {
                 Text(langPost.author)
                 Spacer()
             }
-            
-            WrappingHStack(langPost.content, id: \.self, spacing: .constant(3.5)) {
-                TranslationChunkView(chunk: $0)
+            FlowLayout(spacing: 3.5, lineSpacing: 4) {
+                ForEach(langPost.content) {
+                    TranslationChunkView(chunk: $0)
+                        .fixedSize()
+                }
             }
             
             HStack {
@@ -51,5 +53,5 @@ struct PostRowView: View, Identifiable {
 }
 
 #Preview {
-    PostRowView(langPost: .bakeryOrder)
+    PostRowView(langPost: LangPost.mockJSONLangPost())
 }

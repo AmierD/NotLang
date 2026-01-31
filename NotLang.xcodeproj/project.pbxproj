@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		64DEE6D32F15BCA700E120AC /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 64DEE6D22F15BCA700E120AC /* WrappingHStack */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		64DEE6A32F15B52B00E120AC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -56,7 +52,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64DEE6D32F15BCA700E120AC /* WrappingHStack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +112,6 @@
 			);
 			name = NotLang;
 			packageProductDependencies = (
-				64DEE6D22F15BCA700E120AC /* WrappingHStack */,
 			);
 			productName = NotLang;
 			productReference = 64DEE6932F15B52800E120AC /* NotLang.app */;
@@ -202,7 +196,6 @@
 			mainGroup = 64DEE68A2F15B52800E120AC;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				64DEE6D12F15BCA700E120AC /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 64DEE6942F15B52800E120AC /* Products */;
@@ -589,25 +582,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		64DEE6D12F15BCA700E120AC /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/dkk/WrappingHStack";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.11;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		64DEE6D22F15BCA700E120AC /* WrappingHStack */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 64DEE6D12F15BCA700E120AC /* XCRemoteSwiftPackageReference "WrappingHStack" */;
-			productName = WrappingHStack;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 64DEE68B2F15B52800E120AC /* Project object */;
 }

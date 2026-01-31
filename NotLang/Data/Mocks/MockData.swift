@@ -138,13 +138,45 @@ extension LangPost {
     static func mockJSONLangPost() -> LangPost {
         let jsonString = #"""
             {
-                "author": "Léa, influenceuse lifestyle à Paris",
-                "topic": "Un café trop cher et pas bon",
-                "content": [
-                    { "text": "Franchement,", "translation": "Honestly,", "isPhrase": false },
-                    { "text": "le nouveau coffee shop", "translation": "the new coffee shop", "isPhrase": true },
-                    { "text": "c’est une grosse douille.", "translation": "it's a total rip-off.", "isPhrase": true }
-                ]
+            "author": "Zen_Vibes_Only (@Ines_Wellbeing)",
+            "topic": "Morning routine",
+            "content": [
+            {
+            "text": "Petit yoga",
+            "translation": "Little yoga session",
+            "isPhrase": true
+            },
+            {
+            "text": "au calme",
+            "translation": "in peace",
+            "isPhrase": true
+            },
+            {
+            "text": "avant de commencer",
+            "translation": "before starting",
+            "isPhrase": true
+            },
+            {
+            "text": "la journée.",
+            "translation": "the day.",
+            "isPhrase": false
+            },
+            {
+            "text": "Il faut",
+            "translation": "You have to",
+            "isPhrase": true
+            },
+            {
+            "text": "prendre soin de soi,",
+            "translation": "take care of yourself,",
+            "isPhrase": true
+            },
+            {
+            "text": "c'est la base.",
+            "translation": "it is the essential thing.",
+            "isPhrase": true
+            }
+            ]
             }
             """#
         
