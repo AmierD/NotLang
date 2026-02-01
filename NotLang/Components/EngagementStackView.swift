@@ -8,35 +8,24 @@
 import SwiftUI
 
 struct EngagementStackView: View {
-    @State var comments: Int
-    @State var reposts: Int
-    @State var likes: Int
+    var defaultColor: Color = .gray.opacity(0.7)
     
     var body: some View {
         HStack {
             Spacer()
-            EngagementItemView(systemName: "text.bubble", count: comments)
+            Button() { } label: {
+                Image(systemName: "bookmark")
+            }
             Spacer()
-            EngagementItemView(systemName: "arrow.2.squarepath", count: reposts)
-            Spacer()
-            EngagementItemView(systemName: "heart", count: likes)
+            Button() { } label: {
+                Image(systemName: "heart")
+            }
             Spacer()
         }
+        .foregroundStyle(defaultColor)
     }
 }
 
-struct EngagementItemView: View {
-    var systemName: String
-    var count: Int
-    
-    var body: some View {
-        HStack(spacing: 3) {
-            Button() { } label: {
-                Image(systemName: systemName)
-                    .foregroundStyle(.black)
-            }
-            Text("\(count)")
-                .font(.footnote)
-        }
-    }
+#Preview {
+    EngagementStackView()
 }

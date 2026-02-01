@@ -15,7 +15,7 @@ struct PostRowView: View, Identifiable {
     }
     
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 18) {
             HStack {
                 Circle()
                     .frame(width: 50)
@@ -30,29 +30,34 @@ struct PostRowView: View, Identifiable {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            HStack {
-                Spacer()
-                Capsule()
-                    .frame(height: 1)
-                Spacer()
-            }
-            
-            EngagementStackView(
-                comments: Int.random(in: 1...40),
-                reposts: Int.random(in: 1...25),
-                likes: Int.random(in: 20...500)
-            )
+            EngagementStackView()
         }
-        .background(.blue)
         .padding()
-        .background(.blue)
+        .overlay(
+            RoundedRectangle(cornerRadius: 35)
+                .stroke(Color.gray.opacity(0.2), lineWidth: 5)
+                .mask(
+                    GeometryReader { geo in
+                        ZStack {
+                            // Top-Left Corner
+                            Rectangle()
+                                .frame(width: geo.size.width * 0.09, height: geo.size.height * 0.15)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                            
+                            // Bottom-Right Corner
+                            Rectangle()
+                                .frame(width: geo.size.width * 0.09, height: geo.size.height * 0.15)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                        }
+                    }
+                )
+        )
         .clipShape(RoundedRectangle(cornerRadius: 35))
-        .padding()
-        
-        
+        .padding(5)
+        .background(.white)
     }
 }
 
 #Preview {
-    PostRowView(langPost: LangPost.mockJSONLangPost())
+    PostRowView(langPost: LangPost.bakeryOrder)
 }

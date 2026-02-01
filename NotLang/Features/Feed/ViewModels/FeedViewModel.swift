@@ -20,15 +20,14 @@ class FeedViewModel {
     func fetchPosts() async {
         isLoading = true
         
-        try? await Task.sleep(for: .seconds(2))
+        try? await Task.sleep(for: .seconds(0.5))
         
         let newPosts = [
-            LangPost.mockJSONLangPost(),
             LangPost.generalGreeting,
             LangPost.bakeryOrder,
             LangPost.travelPost,
             LangPost.cityLove,
-            LangPost.weatherUpdate,
+            LangPost.mockJSONLangPost(),
             LangPost.positiveResponse,
             LangPost.spanishGreeting,
             LangPost.coffeeLover,

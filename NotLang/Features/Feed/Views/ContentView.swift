@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    var feedViewModel = FeedViewModel()
-
     var body: some View {
         TabView {
             Tab("Home", systemImage: "house") {
