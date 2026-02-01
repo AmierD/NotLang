@@ -9,7 +9,7 @@ import Foundation
 
 /// A model for a NotLang post.
 struct LangPost: Identifiable, Codable {
-    var id: UUID = UUID()
+    var id: UUID?
     
     /// The username of the author of the post.
     let author: String

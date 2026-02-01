@@ -18,7 +18,7 @@ struct FeedView: View {
                         .progressViewStyle(.circular)
                         .opacity(feedViewModel.isLoading ? 1 : 0)
                     if feedViewModel.isLoading {
-                        Text("Loading")
+                        Text("Loading posts")
                             .opacity(0.4)
                     }
                 }
@@ -32,6 +32,9 @@ struct FeedView: View {
                 }
                 .opacity(feedViewModel.isLoading ? 0 : 1)
                 .animation(.easeInOut, value: feedViewModel.isLoading)
+                .refreshable {
+                    await feedViewModel.fetchPosts()
+                }
                 
                 if feedViewModel.posts.isEmpty && !feedViewModel.isLoading {
                     Text("No posts found")

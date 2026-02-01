@@ -11,7 +11,7 @@ import WrappingHStack
 struct PostRowView: View, Identifiable {
     let langPost: LangPost
     var id: UUID {
-        langPost.id
+        langPost.id ?? UUID()
     }
     
     var body: some View {

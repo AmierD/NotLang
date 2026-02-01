@@ -16,28 +16,14 @@ class FeedViewModel {
     
     var posts: [LangPost] = []
     
-    // TODO: Add logic for fetching new posts
+    
     func fetchPosts() async {
         isLoading = true
+        try? await Task.sleep(for: .seconds(1))
+        let newPosts = try? await APIService.shared.fetchPosts()
+        assert(newPosts != nil, "fetchPosts failed in FeedViewModel")
         
-        try? await Task.sleep(for: .seconds(0.5))
-        
-        let newPosts = [
-            LangPost.generalGreeting,
-            LangPost.bakeryOrder,
-            LangPost.travelPost,
-            LangPost.cityLove,
-            LangPost.mockJSONLangPost(),
-            LangPost.positiveResponse,
-            LangPost.spanishGreeting,
-            LangPost.coffeeLover,
-            LangPost.japaneseIntro,
-            LangPost.italianGratitude,
-            LangPost.frenchQuestion,
-            LangPost.socialMeeting
-        ]
-        
-        self.posts.append(contentsOf: newPosts)
+        self.posts = newPosts ?? [LangPost]()
         isLoading = false
     }
 }
