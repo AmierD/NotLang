@@ -15,12 +15,13 @@ struct PostRowView: View, Identifiable {
     }
     
     var body: some View {
-        VStack(spacing: 18) {
+        VStack(spacing: 30) {
             HStack {
                 Circle()
                     .frame(width: 50)
                 Text(langPost.author)
                 Spacer()
+//                EngagementStackView()
             }
             FlowLayout(spacing: 3.5, lineSpacing: 4) {
                 ForEach(langPost.content) {
@@ -33,25 +34,6 @@ struct PostRowView: View, Identifiable {
             EngagementStackView()
         }
         .padding()
-        .overlay(
-            RoundedRectangle(cornerRadius: 35)
-                .stroke(Color.gray.opacity(0.2), lineWidth: 5)
-                .mask(
-                    GeometryReader { geo in
-                        ZStack {
-                            // Top-Left Corner
-                            Rectangle()
-                                .frame(width: geo.size.width * 0.09, height: geo.size.height * 0.15)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                            
-                            // Bottom-Right Corner
-                            Rectangle()
-                                .frame(width: geo.size.width * 0.09, height: geo.size.height * 0.15)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                        }
-                    }
-                )
-        )
         .clipShape(RoundedRectangle(cornerRadius: 35))
         .padding(5)
         .background(.white)

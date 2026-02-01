@@ -26,12 +26,13 @@ struct TranslationChunkView: View {
                     isShowingTranslation.toggle()
                 }
             }
-        .padding(.horizontal, 2)
-        .background {
-            RoundedRectangle(cornerRadius: 5)
-                .foregroundStyle(.gray.opacity(0.3))
-        }
-        .foregroundStyle(isShowingTranslation ? .indigo : .black)
+            .font(.title2)
+            .padding(.horizontal, 2)
+            .background {
+                RoundedRectangle(cornerRadius: 5)
+                    .foregroundStyle(.gray.opacity(0.3))
+            }
+            .foregroundStyle(isShowingTranslation ? .indigo : .black)
     }
 }
 
