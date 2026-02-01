@@ -27,14 +27,14 @@ struct TranslationChunkView: View {
                 }
             }
         .padding(.horizontal, 2)
-            .overlay(
-                Rectangle()
-                    .stroke(
-                        Color.black,
-                        style: StrokeStyle(lineWidth: 2, dash: [9, 5])
-                    )
-                    .opacity(0.2)
-            )
-            .foregroundStyle(isShowingTranslation ? .indigo : .black)
+        .background {
+            RoundedRectangle(cornerRadius: 5)
+                .foregroundStyle(.gray.opacity(0.3))
+        }
+        .foregroundStyle(isShowingTranslation ? .indigo : .black)
     }
+}
+
+#Preview {
+    TranslationChunkView(chunk: TranslationChunk.aujourdhui)
 }
