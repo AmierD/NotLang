@@ -21,7 +21,6 @@ struct PostRowView: View, Identifiable {
                     .frame(width: 50)
                 Text(langPost.author)
                 Spacer()
-//                EngagementStackView()
             }
             FlowLayout(spacing: 3.5, lineSpacing: 4) {
                 ForEach(langPost.content) {

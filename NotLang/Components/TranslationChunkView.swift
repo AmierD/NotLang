@@ -22,17 +22,20 @@ struct TranslationChunkView: View {
     var body: some View {
         Text("\(isShowingTranslation ? chunk.translation : chunk.text)")
             .onTapGesture {
-                withAnimation(.spring) {
+                withAnimation(.spring(duration: 0.3, bounce: 0.4)) {
                     isShowingTranslation.toggle()
                 }
             }
             .font(.title2)
-            .padding(.horizontal, 2)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 6)
             .background {
-                RoundedRectangle(cornerRadius: 5)
-                    .foregroundStyle(.gray.opacity(0.3))
+                RoundedRectangle(cornerRadius: 10)
+                    .foregroundStyle(isShowingTranslation ? .blue : .gray.opacity(0.3))
             }
-            .foregroundStyle(isShowingTranslation ? .indigo : .black)
+            .foregroundStyle(isShowingTranslation ? .white : .black)
+            .shadow(color: isShowingTranslation ? .blue.opacity(0.3) : .clear, radius: isShowingTranslation ? 6 : 0)
+            .sensoryFeedback(.selection, trigger: isShowingTranslation)
     }
 }
 
