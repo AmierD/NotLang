@@ -24,6 +24,11 @@ struct TranslationChunk: Identifiable, Hashable, Codable {
     /// This information is useful because it allows us the ability to have separate logic for phrases vs. singular words. For example, a user can have a list of saved phrases and a separate list of words.
     let isPhrase: Bool
     
+    let isSaved: Bool = false
+    
+    var cleanedText: String { text.trimmingCharacters(in: .punctuationCharacters) }
+    var cleanedTranslation: String { translation.trimmingCharacters(in: .punctuationCharacters) }
+    
     /// Helper enum for the curstom intializer used by the JSONDecoder.
     enum CodingKeys: String, CodingKey {
         case text, translation, isPhrase

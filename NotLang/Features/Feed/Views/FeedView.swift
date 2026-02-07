@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct FeedView: View {
-    @State var feedViewModel = FeedViewModel()
+    @Environment(FeedViewModel.self) var feedViewModel
+    
+    static var appLaunched = false
 
     var body: some View {
+        @Bindable var viewModel = feedViewModel
+        
         NavigationStack {
             ZStack {
                 VStack {
@@ -47,12 +51,18 @@ struct FeedView: View {
                 }
             }
         }
+        .alert(feedViewModel.errorTitle, isPresented: $viewModel.showingAlert, actions: { }) {
+            Text(feedViewModel.errorDescription)
+        }
         .task {
-            await feedViewModel.fetchPosts()
+            if feedViewModel.posts.isEmpty { await feedViewModel.fetchPosts() }
         }
     }
 }
 
 #Preview {
-    FeedView(feedViewModel: FeedViewModel())
+    @Previewable @State var feedViewModel = FeedViewModel()
+    
+    FeedView()
+        .environment(feedViewModel)
 }

@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO: Implement tapping eye shows/hides all translations and animates to eye.slash
+
 struct EngagementStackView: View {
     var defaultColor: Color = .gray.opacity(0.7)
     var iconSize: CGFloat = 40
@@ -16,7 +18,7 @@ struct EngagementStackView: View {
         HStack(spacing: 40) {
             Spacer()
             Button() { } label: {
-                Image(systemName: "bookmark")
+                Image(systemName: "eye")
                     .font(iconFont)
             }
             Spacer()
