@@ -8,6 +8,9 @@
 import SwiftData
 import SwiftUI
 
+// TODO: Add delete functionality
+// TODO: Add screen for no saved chunks
+
 struct SavedChunksView: View {
     @Query var savedChunks: [SavedChunk]
     
@@ -16,12 +19,28 @@ struct SavedChunksView: View {
             ForEach(savedChunks) { chunk in
                 SavedChunkView(chunk: chunk)
             }
-            // TODO: Add delete functionality
         }
     }
 }
 
 #Preview {
-    SavedChunksView()
-        .modelContainer(for: SavedChunk.self)
+    do {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: SavedChunk.self, configurations: config)
+        
+        let mocks = [
+            SavedChunk(text: "Bonjour", translation: "Hello"),
+            SavedChunk(text: "Bibliothèque", translation: "Library"),
+            SavedChunk(text: "Pomme de terre", translation: "Potato")
+        ]
+        
+        for chunk in mocks {
+            container.mainContext.insert(chunk)
+        }
+        
+        return SavedChunksView()
+            .modelContainer(container)
+    } catch {
+        return Text("Failed to create preview container: \(error.localizedDescription)")
+    }
 }

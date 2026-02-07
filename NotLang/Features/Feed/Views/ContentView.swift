@@ -25,6 +25,13 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
-        .modelContainer(for: SavedChunk.self)
+    do {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: SavedChunk.self, configurations: config)
+        
+        return ContentView()
+            .modelContainer(container)
+    } catch {
+        return Text("Failed to create preview container: \(error.localizedDescription)")
+    }
 }
