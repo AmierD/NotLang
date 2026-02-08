@@ -51,9 +51,6 @@ struct FeedView: View {
                 }
             }
         }
-        .alert(feedViewModel.errorTitle, isPresented: $viewModel.showingAlert, actions: { }) {
-            Text(feedViewModel.errorDescription)
-        }
         .task {
             if feedViewModel.posts.isEmpty { await feedViewModel.fetchPosts() }
         }
@@ -61,8 +58,7 @@ struct FeedView: View {
 }
 
 #Preview {
-    @Previewable @State var feedViewModel = FeedViewModel()
-    
     FeedView()
-        .environment(feedViewModel)
+        .environment(FeedViewModel())
+        .environment(SavedChunksViewModel())
 }

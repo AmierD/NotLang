@@ -41,4 +41,6 @@ struct PostRowView: View, Identifiable {
 
 #Preview {
     PostRowView(langPost: LangPost.bakeryOrder)
+        .environment(FeedViewModel())
+        .environment(SavedChunksViewModel())
 }

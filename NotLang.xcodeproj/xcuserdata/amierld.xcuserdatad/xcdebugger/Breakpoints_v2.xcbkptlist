@@ -14,40 +14,10 @@
             filePath = "NotLang/Features/Feed/ViewModels/FeedViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
             landmarkName = "fetchPosts()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "A9DA005F-4036-4088-888F-E68A5CD46A12 - 9e628e7209c480fd"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for NotLang.FeedViewModel.fetchPosts() async -&gt; ()"
-                  moduleName = "NotLang.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/amierld/Documents/Computer%20Science/MIERACLE%20Code/NotLang/NotLang/Features/Feed/ViewModels/FeedViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "30"
-                  endingLineNumber = "30">
-               </Location>
-               <Location
-                  uuid = "A9DA005F-4036-4088-888F-E68A5CD46A12 - 1225a216950828f3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(7) suspend resume partial function for NotLang.FeedViewModel.fetchPosts() async -&gt; ()"
-                  moduleName = "NotLang.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/amierld/Documents/Computer%20Science/MIERACLE%20Code/NotLang/NotLang/Features/Feed/ViewModels/FeedViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "30"
-                  endingLineNumber = "30">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

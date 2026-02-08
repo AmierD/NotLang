@@ -15,9 +15,20 @@ struct SavedChunksView: View {
     @Query var savedChunks: [SavedChunk]
     
     var body: some View {
-        ScrollView {
-            ForEach(savedChunks) { chunk in
-                SavedChunkView(chunk: chunk)
+        if savedChunks.isEmpty {
+            VStack(spacing: 10) {
+                Text("No saved chunks.")
+                    .font(.headline)
+                Text("Double tap a chunk in your feed to save it.")
+                    .font(.subheadline)
+            }
+            .foregroundStyle(.gray.opacity(0.5))
+            
+        } else {
+            ScrollView {
+                ForEach(savedChunks) { chunk in
+                    SavedChunkView(chunk: chunk)
+                }
             }
         }
     }
@@ -34,12 +45,16 @@ struct SavedChunksView: View {
             SavedChunk(text: "Pomme de terre", translation: "Potato")
         ]
         
-        for chunk in mocks {
-            container.mainContext.insert(chunk)
+        return Group {
+            SavedChunksView()
+                .modelContainer(container)
+                .environment(SavedChunksViewModel())
+            Button("Add") {
+                for chunk in mocks {
+                    container.mainContext.insert(chunk)
+                }
+            }
         }
-        
-        return SavedChunksView()
-            .modelContainer(container)
     } catch {
         return Text("Failed to create preview container: \(error.localizedDescription)")
     }
