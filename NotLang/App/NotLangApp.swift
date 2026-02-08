@@ -14,6 +14,6 @@ struct NotLangApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: SavedChunk.self)
+        .modelContainer(for: [SavedChunk.self, SavedPost.self])
     }
 }

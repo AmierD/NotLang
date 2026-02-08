@@ -10,15 +10,18 @@ import SwiftUI
 // TODO: Implement tapping eye shows/hides all translations and animates to eye.slash
 
 struct EngagementStackView: View {
-    @State private var liked = false
-    @State private var isPressed = false
+    @Binding var liked: Bool
+    @Binding var hiddenButtonActive: Bool
+    @State private var likePressed = false
+    @State private var hiddenPressed = false
+    
     var defaultColor: Color = .gray.opacity(0.7)
     var iconSize: CGFloat = 40
     var iconFont = Font.title.weight(.medium)
     var scaleEffect: CGFloat {
-        if isPressed && liked {
+        if likePressed && liked {
             1.2
-        } else if isPressed {
+        } else if likePressed {
             0.9
         } else {
             1
@@ -28,32 +31,43 @@ struct EngagementStackView: View {
     var body: some View {
         HStack(spacing: 40) {
             Spacer()
-            Button() { } label: {
-                Image(systemName: "eye")
+            Button() {
+                animateButton(buttonActive: $hiddenButtonActive, pressed: $hiddenPressed)
+            } label: {
+                Image(systemName: hiddenButtonActive ? "eye.slash" : "eye")
                     .font(iconFont)
+                    .contentTransition(.symbolEffect)
             }
             Spacer()
             Button() {
-                withAnimation(.spring(duration: liked ? 0.5 : 0.2)) {
-                    liked.toggle()
-                    isPressed = true
-                } completion: {
-                    withAnimation(.spring(response: 0.35, dampingFraction: 0.4)) {
-                        isPressed = false
-                    }
-                }
+                animateButton(buttonActive: $liked, pressed: $likePressed)
             } label: {
                 Image(systemName: liked ? "heart.fill" : "heart")
                     .font(iconFont)
-                    .foregroundStyle(liked ? .pink : .gray)
+                    .foregroundStyle(liked ? .pink : defaultColor)
                     .scaleEffect(scaleEffect)
             }
             Spacer()
         }
         .foregroundStyle(defaultColor)
+        .sensoryFeedback(.selection, trigger: liked)
+    }
+    
+    func animateButton(buttonActive: Binding<Bool>, pressed: Binding<Bool>) {
+        withAnimation(.spring(duration: liked ? 0.5 : 0.2)) {
+            buttonActive.wrappedValue.toggle()
+            pressed.wrappedValue = true
+        } completion: {
+            withAnimation(.spring(response: 0.35, dampingFraction: 0.4)) {
+                pressed.wrappedValue = false
+            }
+        }
     }
 }
 
 #Preview {
-    EngagementStackView()
+    @Previewable @State var liked = false
+    @Previewable @State var hiddenButtonActive = false
+    
+    EngagementStackView(liked: $liked, hiddenButtonActive: $hiddenButtonActive)
 }

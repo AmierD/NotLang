@@ -14,22 +14,28 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            Tab("Home", systemImage: "house") {
+            Tab("Feed", systemImage: "house") {
                 FeedView()
                     .environment(feedViewModel)
+                    .environment(savedChunksViewModel)
             }
             Tab("Saved", systemImage: "bookmark") {
                 SavedChunksView()
+                    .environment(savedChunksViewModel)
+            }
+            Tab("Liked", systemImage: "heart") {
+                SavedPostView()
             }
         }
-        .environment(savedChunksViewModel)
+        
     }
 }
 
 #Preview {
     do {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: SavedChunk.self, configurations: config)
+        let schema = Schema([SavedChunk.self, SavedPost.self])
+        let container = try ModelContainer(for: schema, configurations: config)
         
         return ContentView()
             .modelContainer(container)

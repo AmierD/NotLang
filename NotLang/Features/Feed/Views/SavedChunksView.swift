@@ -15,21 +15,29 @@ struct SavedChunksView: View {
     @Query var savedChunks: [SavedChunk]
     
     var body: some View {
-        if savedChunks.isEmpty {
-            VStack(spacing: 10) {
-                Text("No saved chunks.")
-                    .font(.headline)
-                Text("Double tap a chunk in your feed to save it.")
-                    .font(.subheadline)
-            }
-            .foregroundStyle(.gray.opacity(0.5))
-            
-        } else {
-            ScrollView {
-                ForEach(savedChunks) { chunk in
-                    SavedChunkView(chunk: chunk)
+        NavigationStack {
+            if savedChunks.isEmpty {
+                VStack(spacing: 10) {
+                    Spacer()
+                    Text("No saved chunks.")
+                        .font(.headline)
+                    Text("Double tap a chunk in your feed to save it.")
+                        .font(.subheadline)
+                    Spacer()
+                    Spacer()
                 }
+                .foregroundStyle(.gray.opacity(0.5))
+                .navigationTitle("Saved Chunks")
+                
+            } else {
+                ScrollView {
+                    ForEach(savedChunks) { chunk in
+                        SavedChunkView(chunk: chunk)
+                    }
+                }
+                .navigationTitle("Saved Chunks")
             }
+                
         }
     }
 }

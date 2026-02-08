@@ -25,14 +25,17 @@ struct TranslationChunkView: View {
     @State private var isShowingTranslation = false
     @State private var isPressed = false
     
+    @Binding var showAll: Bool
+    
     private var isSaved: Bool {
         !savedMatches.isEmpty
     }
     
-    init(chunk: TranslationChunk) {
+    init(chunk: TranslationChunk, showAll: Binding<Bool>) {
         self.chunk = chunk
         let textToMatch = chunk.cleanedText
         _savedMatches = Query(filter: #Predicate<SavedChunk> { $0.text.localizedStandardContains(textToMatch) })
+        _showAll = showAll
     }
     
     var body: some View {
@@ -72,6 +75,14 @@ struct TranslationChunkView: View {
         }
         .sensoryFeedback(.selection, trigger: isShowingTranslation)
         .sensoryFeedback(.selection, trigger: isSaved)
+        .onAppear(perform: checkToUpdate)
+        .onChange(of: showAll, checkToUpdate)
+    }
+    
+    func checkToUpdate() {
+        withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
+            isShowingTranslation = showAll
+        }
     }
     
     private var backgroundColor: Color {
@@ -100,7 +111,8 @@ struct TranslationChunkView: View {
 }
 
 #Preview {
-    TranslationChunkView(chunk: TranslationChunk.aujourdhui)
+    @Previewable @State var showAll = false
+    TranslationChunkView(chunk: TranslationChunk.aujourdhui, showAll: $showAll)
         .environment(SavedChunksViewModel())
         .modelContainer(for: SavedChunk.self)
 }
