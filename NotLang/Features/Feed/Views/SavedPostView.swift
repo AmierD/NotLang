@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SavedPostView: View {
     @Query var savedPosts: [SavedPost]
+    let navigationTitle = "Liked Posts"
     
     var body: some View {
         NavigationStack {
@@ -29,7 +30,14 @@ struct SavedPostView: View {
                     Spacer()
                 }
                 .foregroundStyle(.gray.opacity(0.5))
-                .navigationTitle("Liked Posts")
+                .navigationTitle(navigationTitle)
+            } else {
+                ScrollView {
+                    ForEach(savedPosts) { post in
+                        PostRowView(post: post)
+                    }
+                }
+                .navigationTitle(navigationTitle)
             }
         }
     }
@@ -40,8 +48,26 @@ struct SavedPostView: View {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: SavedPost.self, configurations: config)
         
-        return SavedPostView()
-            .modelContainer(container)
+        let mocks = [
+            LangPost.bakeryOrder,
+            LangPost.cityLove
+        ]
+        
+        return Group {
+            SavedPostView()
+                .modelContainer(container)
+                .environment(SavedChunksViewModel())
+                .environment(SavedPostsViewModel())
+            
+            Button("Add Mocks") {
+                for post in mocks {
+                    let newSavedPost = SavedPost(from: post)
+                    container.mainContext.insert(newSavedPost)
+                }
+                
+                try? container.mainContext.save()
+            }
+        }
     } catch {
         return Text("Failed to create preview container: \(error.localizedDescription)")
     }

@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var feedViewModel = FeedViewModel()
     @State private var savedChunksViewModel = SavedChunksViewModel()
+    @State private var savedPostsViewModel = SavedPostsViewModel()
     
     var body: some View {
         TabView {
@@ -18,6 +19,7 @@ struct ContentView: View {
                 FeedView()
                     .environment(feedViewModel)
                     .environment(savedChunksViewModel)
+                    .environment(savedPostsViewModel)
             }
             Tab("Saved", systemImage: "bookmark") {
                 SavedChunksView()
@@ -25,6 +27,8 @@ struct ContentView: View {
             }
             Tab("Liked", systemImage: "heart") {
                 SavedPostView()
+                    .environment(savedPostsViewModel)
+                    .environment(savedChunksViewModel)
             }
         }
         

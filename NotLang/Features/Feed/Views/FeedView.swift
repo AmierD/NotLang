@@ -29,7 +29,7 @@ struct FeedView: View {
                 ScrollView {
                     LazyVStack(spacing: 50) {
                         ForEach(feedViewModel.posts) { post in
-                            PostRowView(langPost: post)
+                            PostRowView(post: post)
                         }
                     }
                 }
@@ -61,4 +61,5 @@ struct FeedView: View {
     FeedView()
         .environment(FeedViewModel())
         .environment(SavedChunksViewModel())
+        .environment(SavedPostsViewModel())
 }

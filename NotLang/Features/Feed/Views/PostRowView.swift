@@ -11,12 +11,14 @@ import SwiftUI
 import WrappingHStack
 
 struct PostRowView: View, Identifiable {
-    let langPost: LangPost
+    @Environment(\.modelContext) var modelContext
+    @Environment(SavedPostsViewModel.self) var savedPostsViewModel
+    let post: Post
     @State private var liked = false
     @State private var hiddenButtonActive = false
     @State private var showAllTranslations = false
     var id: UUID {
-        langPost.id ?? UUID()
+        post.id
     }
     
     var body: some View {
@@ -24,11 +26,11 @@ struct PostRowView: View, Identifiable {
             HStack {
                 Circle()
                     .frame(width: 50)
-                Text(langPost.author)
+                Text(post.author)
                 Spacer()
             }
             FlowLayout(spacing: 3.5, lineSpacing: 4) {
-                ForEach(langPost.content) {
+                ForEach(post.content) {
                     TranslationChunkView(chunk: $0, showAll: $showAllTranslations)
                         .fixedSize()
                 }
@@ -45,15 +47,20 @@ struct PostRowView: View, Identifiable {
         .background(.white)
         // TODO: Fix animation
         .onChange(of: hiddenButtonActive) {
-//            withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
-                showAllTranslations = hiddenButtonActive
-//            }
+            showAllTranslations = hiddenButtonActive
+        }
+        .onChange(of: liked) { oldValue, newValue in
+            savedPostsViewModel.syncLikeStatus(post: post, isLiked: newValue, context: modelContext)
+        }
+        .task {
+            liked = savedPostsViewModel.isPostSaved(post: post, context: modelContext)
         }
     }
 }
 
 #Preview {
-    PostRowView(langPost: LangPost.bakeryOrder)
+    PostRowView(post: LangPost.bakeryOrder)
         .environment(FeedViewModel())
         .environment(SavedChunksViewModel())
+        .environment(SavedPostsViewModel())
 }

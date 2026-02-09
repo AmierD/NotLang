@@ -10,7 +10,7 @@ import Foundation
 import SwiftData
 
 @Model
-class SavedPost {
+class SavedPost: Post {
     @Attribute(.unique) var id: UUID
     var author: String
     var topic: String
@@ -18,7 +18,7 @@ class SavedPost {
     var dateSaved: Date
     
     init(from post: LangPost) {
-        self.id = post.id ?? UUID()
+        self.id = post.id
         self.author = post.author
         self.topic = post.topic
         self.content = post.content
