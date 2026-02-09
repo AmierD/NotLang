@@ -44,10 +44,22 @@ struct FeedView: View {
                         .opacity(0.4)
                 }
             }
+            .navigationTitle("NotLang")
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("Not Lang")
-                        .font(.largeTitle.weight(.heavy))
+                Menu {
+                    // The content that appears when clicked
+                    Text("Feed refresh in: \(feedViewModel.countdownText)")
+                } label: {
+                    // Your existing view serves as the clickable button
+                    HStack {
+                        Image(systemName: "clock.arrow.circlepath")
+                        Text("\(feedViewModel.countdownText)")
+                            .monospacedDigit()
+                    }
+                    .font(.caption.bold())
+                    .padding(8)
+                    .foregroundStyle(.primary) // Ensures the text color is readable
+                    .fixedSize()
                 }
             }
         }
