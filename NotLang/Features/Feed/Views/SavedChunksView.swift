@@ -28,6 +28,13 @@ struct SavedChunksView: View {
                 }
                 .foregroundStyle(.gray.opacity(0.5))
                 .navigationTitle("Saved Chunks")
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        NavigationLink(destination: StudyView()) {
+                            Label("Study", systemImage: "graduationcap")
+                        }
+                    }
+                }
                 
             } else {
                 ScrollView {
@@ -36,6 +43,13 @@ struct SavedChunksView: View {
                     }
                 }
                 .navigationTitle("Saved Chunks")
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        NavigationLink(destination: StudyView()) {
+                            Label("Study", systemImage: "graduationcap")
+                        }
+                    }
+                }
             }
                 
         }
