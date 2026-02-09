@@ -134,9 +134,26 @@ struct StudyView: View {
     }
 
     private func submit(_ difficulty: StudyViewModel.Difficulty, for chunk: SavedChunk) {
+        // Perform review update via the view model
         viewModel.review(chunk, difficulty: difficulty, context: modelContext)
-        // After saving, this chunk should drop out of the query if no longer due.
-        // Advance to next card and reset UI state.
+
+        // Ensure "Again" keeps the card in the due list and shows it again immediately.
+        if difficulty == .again {
+            // Keep the card due now so it remains in the query results for this session
+            chunk.nextReviewDate = Date()
+            try? modelContext.save()
+
+            // Reset flip state but do NOT advance index so the same card appears again
+            withAnimation {
+                isFlipped = false
+                showControls = false
+            }
+            // Clamp in case the query changed
+            clampIndex()
+            return
+        }
+
+        // For other difficulties, advance to the next card.
         advance()
     }
 
