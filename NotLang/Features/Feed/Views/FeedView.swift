@@ -40,7 +40,7 @@ struct FeedView: View {
                 }
                 
                 if feedViewModel.posts.isEmpty && !feedViewModel.isLoading {
-                    Text("No posts found")
+                    Text("No posts found, please try again later.")
                         .opacity(0.4)
                 }
             }

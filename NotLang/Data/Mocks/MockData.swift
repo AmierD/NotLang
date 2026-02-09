@@ -10,49 +10,49 @@ import Foundation
 // MARK: - French Translation Chunks
 extension TranslationChunk {
     // Conversational Chunks
-    static let bonjour = TranslationChunk(text: "Bonjour", translation: "Hello", isPhrase: false)
-    static let commentCaVa = TranslationChunk(text: "comment ça va ?", translation: "how is it going?", isPhrase: true)
-    static let caVaBien = TranslationChunk(text: "Ça va bien", translation: "It's going well", isPhrase: true)
-    static let tellement = TranslationChunk(text: "tellement", translation: "so much", isPhrase: false)
-    static let merci = TranslationChunk(text: "merci", translation: "thank you", isPhrase: false)
-    
+    static let bonjour = TranslationChunk(text: "Bonjour", translation: "Hello")
+    static let commentCaVa = TranslationChunk(text: "comment ça va ?", translation: "how is it going?")
+    static let caVaBien = TranslationChunk(text: "Ça va bien", translation: "It's going well")
+    static let tellement = TranslationChunk(text: "tellement", translation: "so much")
+    static let merci = TranslationChunk(text: "merci", translation: "thank you")
+        
     // Dining & Requests
-    static let jeVoudrais = TranslationChunk(text: "Je voudrais", translation: "I would like", isPhrase: true)
-    static let unCroissant = TranslationChunk(text: "un croissant", translation: "a croissant", isPhrase: false)
-    static let silVousPlait = TranslationChunk(text: "s'il vous plaît", translation: "please", isPhrase: true)
+    static let jeVoudrais = TranslationChunk(text: "Je voudrais", translation: "I would like")
+    static let unCroissant = TranslationChunk(text: "un croissant", translation: "a croissant")
+    static let silVousPlait = TranslationChunk(text: "s'il vous plaît", translation: "please")
     
     // Description & Places
-    static let laTourEiffel = TranslationChunk(text: "La tour Eiffel", translation: "The Eiffel Tower", isPhrase: true)
-    static let estMagnifique = TranslationChunk(text: "est magnifique", translation: "is magnificent", isPhrase: false)
-    static let jaime = TranslationChunk(text: "J'aime", translation: "I love", isPhrase: false)
-    static let paris = TranslationChunk(text: "Paris", translation: "Paris", isPhrase: false)
+    static let laTourEiffel = TranslationChunk(text: "La tour Eiffel", translation: "The Eiffel Tower")
+    static let estMagnifique = TranslationChunk(text: "est magnifique", translation: "is magnificent")
+    static let jaime = TranslationChunk(text: "J'aime", translation: "I love")
+    static let paris = TranslationChunk(text: "Paris", translation: "Paris")
     
     // Time & Weather
-    static let ilFaitBeau = TranslationChunk(text: "Il fait beau", translation: "The weather is nice", isPhrase: true)
-    static let aujourdhui = TranslationChunk(text: "aujourd'hui", translation: "today", isPhrase: false)
+    static let ilFaitBeau = TranslationChunk(text: "Il fait beau", translation: "The weather is nice")
+    static let aujourdhui = TranslationChunk(text: "aujourd'hui", translation: "today")
 }
 
 // MARK: - Multi-Language Translation Chunks
 extension TranslationChunk {
     // Spanish Samples
-    static let hola = TranslationChunk(text: "Hola", translation: "Hello", isPhrase: false)
-    static let comoEstas = TranslationChunk(text: "¿cómo estás?", translation: "how are you?", isPhrase: true)
-    static let meGusta = TranslationChunk(text: "Me gusta", translation: "I like", isPhrase: true)
-    static let elCafe = TranslationChunk(text: "el café", translation: "the coffee", isPhrase: false)
+    static let hola = TranslationChunk(text: "Hola", translation: "Hello")
+    static let comoEstas = TranslationChunk(text: "¿cómo estás?", translation: "how are you?")
+    static let meGusta = TranslationChunk(text: "Me gusta", translation: "I like")
+    static let elCafe = TranslationChunk(text: "el café", translation: "the coffee")
     
     // Japanese Samples
-    static let konnichiwa = TranslationChunk(text: "こんにちは", translation: "Hello", isPhrase: false)
-    static let ogenki = TranslationChunk(text: "お元気ですか？", translation: "Are you well?", isPhrase: true)
+    static let konnichiwa = TranslationChunk(text: "こんにちは", translation: "Hello")
+    static let ogenki = TranslationChunk(text: "お元気ですか？", translation: "Are you well?")
     
     // Italian Samples
-    static let grazie = TranslationChunk(text: "Grazie", translation: "Thank you", isPhrase: false)
-    static let mille = TranslationChunk(text: "mille", translation: "a thousand", isPhrase: false)
+    static let grazie = TranslationChunk(text: "Grazie", translation: "Thank you")
+    static let mille = TranslationChunk(text: "mille", translation: "a thousand")
     
     // French Samples (Additional)
-    static let ouEst = TranslationChunk(text: "Où est", translation: "Where is", isPhrase: true)
-    static let laBibliotheque = TranslationChunk(text: "la bibliothèque", translation: "the library", isPhrase: false)
-    static let enchanté = TranslationChunk(text: "Enchanté", translation: "Nice to meet you", isPhrase: true)
-    static let toutLeMonde = TranslationChunk(text: "tout le monde", translation: "everyone", isPhrase: true)
+    static let ouEst = TranslationChunk(text: "Où est", translation: "Where is")
+    static let laBibliotheque = TranslationChunk(text: "la bibliothèque", translation: "the library")
+    static let enchanté = TranslationChunk(text: "Enchanté", translation: "Nice to meet you")
+    static let toutLeMonde = TranslationChunk(text: "tout le monde", translation: "everyone")
 }
 
 // MARK: - LangPost Samples
@@ -139,42 +139,35 @@ extension LangPost {
         let jsonString = #"""
             {
             "author": "Zen_Vibes_Only (@Ines_Wellbeing)",
-            "topic": "Morning routine",
+            "topic": "Morning routine"
             "content": [
             {
             "text": "Petit yoga",
-            "translation": "Little yoga session",
-            "isPhrase": true
+            "translation": "Little yoga session"
             },
             {
             "text": "au calme",
-            "translation": "in peace",
-            "isPhrase": true
+            "translation": "in peace"
             },
             {
             "text": "avant de commencer",
-            "translation": "before starting",
-            "isPhrase": true
+            "translation": "before starting"
             },
             {
             "text": "la journée.",
-            "translation": "the day.",
-            "isPhrase": false
+            "translation": "the day."
             },
             {
             "text": "Il faut",
-            "translation": "You have to",
-            "isPhrase": true
+            "translation": "You have to"
             },
             {
             "text": "prendre soin de soi,",
-            "translation": "take care of yourself,",
-            "isPhrase": true
+            "translation": "take care of yourself,"
             },
             {
             "text": "c'est la base.",
-            "translation": "it is the essential thing.",
-            "isPhrase": true
+            "translation": "it is the essential thing."
             }
             ]
             }

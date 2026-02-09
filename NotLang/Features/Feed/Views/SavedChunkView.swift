@@ -26,6 +26,8 @@ struct SavedChunkView: View {
                     .font(.largeTitle)
                     .foregroundStyle(isShowingTranslation ? .white : .black)
                     .scaleEffect(x: isShowingTranslation ? -1 : 1)
+                    .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.5)
             }
             .padding()
         }

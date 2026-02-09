@@ -19,11 +19,6 @@ struct TranslationChunk: Identifiable, Hashable, Codable {
     /// Translation of the text in the user's NL, represented as a `String`.
     let translation: String
     
-    /// Identifier for whether or not this chunk has been deemed a phrase, represented as a `Boolean`.
-    ///
-    /// This information is useful because it allows us the ability to have separate logic for phrases vs. singular words. For example, a user can have a list of saved phrases and a separate list of words.
-    let isPhrase: Bool
-    
     let isSaved: Bool = false
     
     var cleanedText: String { text.trimmingCharacters(in: .punctuationCharacters) }
@@ -31,7 +26,7 @@ struct TranslationChunk: Identifiable, Hashable, Codable {
     
     /// Helper enum for the curstom intializer used by the JSONDecoder.
     enum CodingKeys: String, CodingKey {
-        case text, translation, isPhrase
+        case text, translation
     }
     
     /// Custom initializer to be used by the JSON Decoder.
@@ -43,14 +38,12 @@ struct TranslationChunk: Identifiable, Hashable, Codable {
         self.id = UUID()
         self.text = try container.decode(String.self, forKey: .text)
         self.translation = try container.decode(String.self, forKey: .translation)
-        self.isPhrase = try container.decode(Bool.self, forKey: .isPhrase)
     }
     
     /// Intializer for manual creation of ``TranslationChunk`` objects.
-    init(text: String, translation: String, isPhrase: Bool) {
+    init(text: String, translation: String) {
         self.id = UUID()
         self.text = text
         self.translation = translation
-        self.isPhrase = isPhrase
     }
 }
