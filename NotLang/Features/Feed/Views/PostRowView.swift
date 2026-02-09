@@ -17,6 +17,11 @@ struct PostRowView: View, Identifiable {
     @State private var liked = false
     @State private var hiddenButtonActive = false
     @State private var showAllTranslations = false
+    
+    var firstletter: String {
+        String(post.author.first ?? "X")
+    }
+    
     var id: UUID {
         post.id
     }
@@ -24,7 +29,14 @@ struct PostRowView: View, Identifiable {
     var body: some View {
         VStack(spacing: 30) {
             HStack {
-                Circle()
+                ZStack {
+                    Circle()
+                        .foregroundStyle(Color.randomNonWhite())
+                    Text(firstletter)
+                        .foregroundStyle(.white)
+                        .font(.title)
+                        .fontDesign(.rounded)
+                }
                     .frame(width: 50)
                 Text(post.author)
                 Spacer()
