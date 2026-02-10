@@ -5,7 +5,6 @@
 //  Created by Amier Davis on 2/7/26.
 //
 
-
 import Foundation
 import SwiftData
 
@@ -16,7 +15,7 @@ class SavedPost: Post {
     var topic: String
     var content: [TranslationChunk]
     var dateSaved: Date
-    
+
     init(from post: LangPost) {
         self.id = post.id
         self.author = post.author

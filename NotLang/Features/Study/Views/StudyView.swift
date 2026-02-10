@@ -1,5 +1,5 @@
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct StudyView: View {
     @Environment(\.modelContext) private var modelContext
@@ -26,23 +26,25 @@ struct StudyView: View {
             if dueChunks.isEmpty {
                 EmptyStateView(
                     title: "No cards due today.",
-                    subtitle: "Great job! Come back tomorrow or save more chunks to study."
+                    subtitle:
+                        "Great job! Come back tomorrow or save more chunks to study."
                 )
             } else {
-                // Progress
-                Text("\(min(currentIndex + 1, dueChunks.count)) of \(dueChunks.count)")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                Text(
+                    "\(min(currentIndex + 1, dueChunks.count)) of \(dueChunks.count)"
+                )
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
 
-                // Flip Card
                 cardView
                     .frame(height: 260)
                     .onTapGesture(perform: handleFlip)
 
-                // Controls (only after flip)
                 if showControls, let chunk = currentChunk {
                     srsControls(for: chunk)
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .transition(
+                            .move(edge: .bottom).combined(with: .opacity)
+                        )
                 }
 
                 Spacer(minLength: 0)
@@ -50,8 +52,14 @@ struct StudyView: View {
         }
         .padding()
         .navigationTitle("Study")
-        .animation(.spring(response: 0.35, dampingFraction: 0.8), value: isFlipped)
-        .animation(.spring(response: 0.35, dampingFraction: 0.8), value: showControls)
+        .animation(
+            .spring(response: 0.35, dampingFraction: 0.8),
+            value: isFlipped
+        )
+        .animation(
+            .spring(response: 0.35, dampingFraction: 0.8),
+            value: showControls
+        )
         .onChange(of: dueChunks) { _, _ in
             clampIndex()
         }
@@ -86,7 +94,10 @@ struct StudyView: View {
             Angle(degrees: isFlipped ? 180 : 0),
             axis: (x: 0, y: 1, z: 0)
         )
-        .animation(.spring(response: 0.45, dampingFraction: 0.75), value: isFlipped)
+        .animation(
+            .spring(response: 0.45, dampingFraction: 0.75),
+            value: isFlipped
+        )
     }
 
     private func srsControls(for chunk: SavedChunk) -> some View {
@@ -126,7 +137,10 @@ struct StudyView: View {
         }
     }
 
-    private func submit(_ difficulty: StudyViewModel.Difficulty, for chunk: SavedChunk) {
+    private func submit(
+        _ difficulty: StudyViewModel.Difficulty,
+        for chunk: SavedChunk
+    ) {
         // Perform review update via the view model
         viewModel.review(chunk, difficulty: difficulty, context: modelContext)
 
@@ -176,7 +190,10 @@ struct StudyView: View {
 #Preview {
     do {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: SavedChunk.self, configurations: config)
+        let container = try ModelContainer(
+            for: SavedChunk.self,
+            configurations: config
+        )
 
         // Seed some due and not-due examples
         let now = Date()
@@ -201,6 +218,8 @@ struct StudyView: View {
         }
         .modelContainer(container)
     } catch {
-        return Text("Failed to create preview container: \(error.localizedDescription)")
+        return Text(
+            "Failed to create preview container: \(error.localizedDescription)"
+        )
     }
 }

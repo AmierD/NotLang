@@ -15,7 +15,11 @@ final class StudyViewModel {
     ///   - chunk: The SavedChunk being reviewed.
     ///   - difficulty: User-rated difficulty for this review.
     ///   - context: ModelContext used to persist changes.
-    func review(_ chunk: SavedChunk, difficulty: Difficulty, context: ModelContext) {
+    func review(
+        _ chunk: SavedChunk,
+        difficulty: Difficulty,
+        context: ModelContext
+    ) {
         let now = Date()
         var interval = chunk.interval
         var repetition = chunk.repetition
@@ -32,7 +36,10 @@ final class StudyViewModel {
             // Slightly penalize ease, keep repetition at least 1, small interval growth
             repetition = max(1, repetition)
             ef = max(1.3, ef - 0.15)
-            interval = max(1, interval > 0 ? Int(round(Double(interval) * 1.2)) : 1)
+            interval = max(
+                1,
+                interval > 0 ? Int(round(Double(interval) * 1.2)) : 1
+            )
 
         case .good:
             // Normal progression; keep ease stable, multiply by EF
@@ -58,7 +65,11 @@ final class StudyViewModel {
         chunk.repetition = repetition
         chunk.easeFactor = ef
         chunk.interval = interval
-        if let due = Calendar.current.date(byAdding: .day, value: interval, to: now) {
+        if let due = Calendar.current.date(
+            byAdding: .day,
+            value: interval,
+            to: now
+        ) {
             chunk.nextReviewDate = due
         } else {
             chunk.nextReviewDate = now

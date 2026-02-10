@@ -10,7 +10,7 @@ import SwiftUI
 struct EmptyStateView: View {
     let title: String
     let subtitle: String
-    
+
     var body: some View {
         VStack(spacing: 10) {
             Spacer()

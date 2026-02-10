@@ -12,7 +12,6 @@ struct SavedChunksView: View {
     @Environment(\.modelContext) var modelContext
     @Query(sort: \SavedChunk.text) var savedChunks: [SavedChunk]
 
-    // Grouping logic
     private var groupedChunks: [(key: String, values: [SavedChunk])] {
         let grouped = Dictionary(grouping: savedChunks) { chunk in
             String(chunk.text.prefix(1)).uppercased()
@@ -109,7 +108,7 @@ struct SavedChunksView: View {
                 }
         )
     }
-    
+
     // MARK: - Logic
 
     func deleteFromSection(

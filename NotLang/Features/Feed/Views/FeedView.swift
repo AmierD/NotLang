@@ -9,12 +9,12 @@ import SwiftUI
 
 struct FeedView: View {
     @Environment(FeedViewModel.self) var feedViewModel
-    
+
     static var appLaunched = false
 
     var body: some View {
         @Bindable var viewModel = feedViewModel
-        
+
         NavigationStack {
             ZStack {
                 VStack {
@@ -38,11 +38,14 @@ struct FeedView: View {
                 .refreshable {
                     await feedViewModel.fetchPosts()
                 }
-                
+
                 if feedViewModel.posts.isEmpty && !feedViewModel.isLoading {
                     Text("No posts found, please try again later.")
                         .opacity(0.4)
-                    EmptyStateView(title: "No posts found.", subtitle: "Please try again later.")
+                    EmptyStateView(
+                        title: "No posts found.",
+                        subtitle: "Please try again later."
+                    )
                 }
             }
             .navigationTitle("NotLang")

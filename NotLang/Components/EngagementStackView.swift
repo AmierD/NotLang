@@ -14,7 +14,7 @@ struct EngagementStackView: View {
     @Binding var hiddenButtonActive: Bool
     @State private var likePressed = false
     @State private var hiddenPressed = false
-    
+
     var defaultColor: Color = .gray.opacity(0.7)
     var iconSize: CGFloat = 40
     var iconFont = Font.title.weight(.medium)
@@ -27,19 +27,22 @@ struct EngagementStackView: View {
             1
         }
     }
-    
+
     var body: some View {
         HStack(spacing: 40) {
             Spacer()
-            Button() {
-                animateButton(buttonActive: $hiddenButtonActive, pressed: $hiddenPressed)
+            Button {
+                animateButton(
+                    buttonActive: $hiddenButtonActive,
+                    pressed: $hiddenPressed
+                )
             } label: {
                 Image(systemName: hiddenButtonActive ? "eye.slash" : "eye")
                     .font(iconFont)
                     .contentTransition(.symbolEffect)
             }
             Spacer()
-            Button() {
+            Button {
                 animateButton(buttonActive: $liked, pressed: $likePressed)
             } label: {
                 Image(systemName: liked ? "heart.fill" : "heart")
@@ -52,7 +55,7 @@ struct EngagementStackView: View {
         .foregroundStyle(defaultColor)
         .sensoryFeedback(.selection, trigger: liked)
     }
-    
+
     func animateButton(buttonActive: Binding<Bool>, pressed: Binding<Bool>) {
         withAnimation(.spring(duration: liked ? 0.5 : 0.2)) {
             buttonActive.wrappedValue.toggle()
@@ -68,6 +71,6 @@ struct EngagementStackView: View {
 #Preview {
     @Previewable @State var liked = false
     @Previewable @State var hiddenButtonActive = false
-    
+
     EngagementStackView(liked: $liked, hiddenButtonActive: $hiddenButtonActive)
 }

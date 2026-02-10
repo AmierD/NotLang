@@ -12,7 +12,7 @@ struct SavedChunkView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(SavedChunksViewModel.self) var savedChunksViewModel
     let chunk: SavedChunk
-    
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 30)
