@@ -13,45 +13,42 @@ struct SavedChunkView: View {
     @Environment(SavedChunksViewModel.self) var savedChunksViewModel
     let chunk: SavedChunk
     
-    @State private var isShowingTranslation = false
-    @State private var isAnimating = false
-    
     var body: some View {
-        
         ZStack {
             RoundedRectangle(cornerRadius: 30)
-                .foregroundStyle(isShowingTranslation ? .blue : .gray.opacity(0.2))
+                .foregroundStyle(Color.yellow.opacity(0.2))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 30)
+                        .stroke(.yellow, lineWidth: 4)
+                )
             VStack {
-                Text(isShowingTranslation ? chunk.translation : chunk.text)
-                    .font(.largeTitle)
-                    .foregroundStyle(isShowingTranslation ? .white : .black)
-                    .scaleEffect(x: isShowingTranslation ? -1 : 1)
-                    .multilineTextAlignment(.center)
-                    .minimumScaleFactor(0.5)
+                HStack {
+                    Text(chunk.text)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.black)
+                        .multilineTextAlignment(.leading)
+                        .minimumScaleFactor(0.5)
+                    Spacer()
+                    Image(systemName: "bookmark.fill")
+                        .font(.title)
+                        .foregroundStyle(.yellow)
+                }
+                HStack {
+                    Text(chunk.translation)
+                        .font(.title2)
+                        .foregroundStyle(.black)
+                        .multilineTextAlignment(.leading)
+                        .minimumScaleFactor(0.5)
+                    Spacer()
+                }
+                Spacer()
             }
             .padding()
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 200)
-        .padding()
-        
-        .rotation3DEffect(
-            Angle(degrees: isAnimating ? 180 : 0),
-            axis: (x: 0.0, y: 1.0, z: 0.0)
-        )
-        .onTapGesture(perform: handleClick)
-        .contextMenu {
-            Button("Unsave", systemImage: "bookmark.slash", role: .destructive) {
-                modelContext.delete(chunk)
-            }
-        }
-    }
-    
-    func handleClick() {
-        withAnimation {
-            isShowingTranslation.toggle()
-            isAnimating.toggle()
-        }
+        .frame(minHeight: 100, maxHeight: 120)
+        .padding(.trailing)
     }
 }
 

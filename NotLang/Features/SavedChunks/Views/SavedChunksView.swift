@@ -8,50 +8,117 @@
 import SwiftData
 import SwiftUI
 
-// TODO: Add delete functionality
-// TODO: Add screen for no saved chunks
-
 struct SavedChunksView: View {
-    @Query var savedChunks: [SavedChunk]
-    
+    @Environment(\.modelContext) var modelContext
+    @Query(sort: \SavedChunk.text) var savedChunks: [SavedChunk]
+
+    // Grouping logic
+    private var groupedChunks: [(key: String, values: [SavedChunk])] {
+        let grouped = Dictionary(grouping: savedChunks) { chunk in
+            String(chunk.text.prefix(1)).uppercased()
+        }
+        return grouped.map { (key: $0.key, values: $0.value) }
+            .sorted { $0.key < $1.key }
+    }
+
+    private var alphabet: [String] {
+        groupedChunks.map { $0.key }
+    }
+
     var body: some View {
         NavigationStack {
             if savedChunks.isEmpty {
-                VStack(spacing: 10) {
-                    Spacer()
-                    Text("No saved chunks.")
-                        .font(.headline)
-                    Text("Double tap a chunk in your feed to save it.")
-                        .font(.subheadline)
-                    Spacer()
-                    Spacer()
-                }
-                .foregroundStyle(.gray.opacity(0.5))
+                EmptyStateView(
+                    title: "No saved chunks",
+                    subtitle: "Double tap a chunk in your feed to save it."
+                )
                 .navigationTitle("Saved Chunks")
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        NavigationLink(destination: StudyView()) {
-                            Label("Study", systemImage: "graduationcap")
-                        }
-                    }
-                }
-                
             } else {
-                ScrollView {
-                    ForEach(savedChunks) { chunk in
-                        SavedChunkView(chunk: chunk)
+                ScrollViewReader { proxy in
+                    ZStack(alignment: .trailing) {
+                        List {
+                            ForEach(groupedChunks, id: \.key) { section in
+                                Section(
+                                    header: Text(section.key)
+                                        .id(section.key)
+                                        .font(.headline)
+                                        .foregroundColor(.gray)
+                                ) {
+                                    ForEach(section.values) { chunk in
+                                        SavedChunkView(chunk: chunk)
+                                            .listRowSeparator(.hidden)
+                                    }
+                                    .onDelete { offsets in
+                                        deleteFromSection(
+                                            offsets,
+                                            section: section
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                        .listStyle(.plain)
+                        .scrollIndicators(.hidden)
+
+                        alphabetIndexBar(proxy: proxy)
                     }
-                }
-                .navigationTitle("Saved Chunks")
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        NavigationLink(destination: StudyView()) {
-                            Label("Study", systemImage: "graduationcap")
+                    .navigationTitle("Saved Chunks")
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            NavigationLink(destination: StudyView()) {
+                                Label("Study", systemImage: "graduationcap")
+                            }
+                        }
+                        ToolbarItem(placement: .topBarLeading) {
+                            EditButton()
                         }
                     }
                 }
             }
-                
+        }
+    }
+
+    // MARK: - Subviews
+
+    private func alphabetIndexBar(proxy: ScrollViewProxy) -> some View {
+        VStack(spacing: 0) {
+            ForEach(alphabet, id: \.self) { letter in
+                Text(letter)
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundColor(.secondary)
+                    .frame(width: 25, height: 18)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        withAnimation(.easeInOut) {
+                            proxy.scrollTo(letter, anchor: .top)
+                        }
+                    }
+            }
+        }
+        .gesture(
+            DragGesture(minimumDistance: 0)
+                .onChanged { value in
+                    let touchPoint = value.location.y
+                    let letterHeight: CGFloat = 18
+                    let index = Int(touchPoint / letterHeight)
+
+                    if index >= 0 && index < alphabet.count {
+                        let letter = alphabet[index]
+                        proxy.scrollTo(letter, anchor: .top)
+                    }
+                }
+        )
+    }
+    
+    // MARK: - Logic
+
+    func deleteFromSection(
+        _ offsets: IndexSet,
+        section: (key: String, values: [SavedChunk])
+    ) {
+        for index in offsets {
+            let chunk = section.values[index]
+            modelContext.delete(chunk)
         }
     }
 }
@@ -59,14 +126,17 @@ struct SavedChunksView: View {
 #Preview {
     do {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: SavedChunk.self, configurations: config)
-        
+        let container = try ModelContainer(
+            for: SavedChunk.self,
+            configurations: config
+        )
+
         let mocks = [
             SavedChunk(text: "Bonjour", translation: "Hello"),
             SavedChunk(text: "Bibliothèque", translation: "Library"),
-            SavedChunk(text: "Pomme de terre", translation: "Potato")
+            SavedChunk(text: "Pomme de terre", translation: "Potato"),
         ]
-        
+
         return Group {
             SavedChunksView()
                 .modelContainer(container)
@@ -78,6 +148,8 @@ struct SavedChunksView: View {
             }
         }
     } catch {
-        return Text("Failed to create preview container: \(error.localizedDescription)")
+        return Text(
+            "Failed to create preview container: \(error.localizedDescription)"
+        )
     }
 }

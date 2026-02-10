@@ -24,17 +24,10 @@ struct StudyView: View {
     var body: some View {
         VStack(spacing: 24) {
             if dueChunks.isEmpty {
-                VStack(spacing: 10) {
-                    Spacer()
-                    Text("No cards due today.")
-                        .font(.headline)
-                    Text("Great job! Come back tomorrow or save more chunks to study.")
-                        .font(.subheadline)
-                        .multilineTextAlignment(.center)
-                    Spacer()
-                    Spacer()
-                }
-                .foregroundStyle(.gray.opacity(0.5))
+                EmptyStateView(
+                    title: "No cards due today.",
+                    subtitle: "Great job! Come back tomorrow or save more chunks to study."
+                )
             } else {
                 // Progress
                 Text("\(min(currentIndex + 1, dueChunks.count)) of \(dueChunks.count)")

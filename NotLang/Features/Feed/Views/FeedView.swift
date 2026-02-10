@@ -42,15 +42,14 @@ struct FeedView: View {
                 if feedViewModel.posts.isEmpty && !feedViewModel.isLoading {
                     Text("No posts found, please try again later.")
                         .opacity(0.4)
+                    EmptyStateView(title: "No posts found.", subtitle: "Please try again later.")
                 }
             }
             .navigationTitle("NotLang")
             .toolbar {
                 Menu {
-                    // The content that appears when clicked
                     Text("Feed refresh in: \(feedViewModel.countdownText)")
                 } label: {
-                    // Your existing view serves as the clickable button
                     HStack {
                         Image(systemName: "clock.arrow.circlepath")
                         Text("\(feedViewModel.countdownText)")
@@ -58,7 +57,7 @@ struct FeedView: View {
                     }
                     .font(.caption.bold())
                     .padding(8)
-                    .foregroundStyle(.primary) // Ensures the text color is readable
+                    .foregroundStyle(.primary)
                     .fixedSize()
                 }
             }
