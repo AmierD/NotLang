@@ -48,7 +48,7 @@ struct FeedView: View {
                     )
                 }
             }
-            .navigationTitle("NotLang")
+            .navigationTitle("Not Lang")
             .toolbar {
                 Menu {
                     Text("Feed refresh in: \(feedViewModel.countdownText)")

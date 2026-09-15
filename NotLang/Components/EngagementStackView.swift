@@ -27,7 +27,7 @@ struct EngagementStackView: View {
             1
         }
     }
-
+    
     var body: some View {
         HStack(spacing: 40) {
             Spacer()
@@ -39,7 +39,7 @@ struct EngagementStackView: View {
             } label: {
                 Image(systemName: hiddenButtonActive ? "eye.slash" : "eye")
                     .font(iconFont)
-                    .contentTransition(.symbolEffect)
+                    .contentTransition(.symbolEffect(.replace))
             }
             Spacer()
             Button {
