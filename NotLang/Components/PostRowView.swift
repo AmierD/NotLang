@@ -8,6 +8,7 @@
 // TODO: Make show all translations button smart to when all are shown or hidden already
 
 import SwiftUI
+import SwiftData
 
 struct PostRowView: View, Identifiable {
     @Environment(\.modelContext) var modelContext
