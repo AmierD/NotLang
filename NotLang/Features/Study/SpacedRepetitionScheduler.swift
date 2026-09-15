@@ -112,7 +112,7 @@ nonisolated enum SpacedRepetitionScheduler {
         case .good:
             // Normal progression; keep ease stable, multiply by EF
             newRepetition += 1
-            newEaseFactor = max(1.3, newEaseFactor + 0.0)
+            newEaseFactor = max(1.3, newEaseFactor)
             if newInterval <= 0 {
                 newInterval = 1
             } else {
@@ -139,7 +139,7 @@ nonisolated enum SpacedRepetitionScheduler {
         let nextReviewDate =
             Calendar.current.date(
                 byAdding: .day,
-                value: interval,
+                value: newInterval,
                 to: now
             ) ?? now
 
