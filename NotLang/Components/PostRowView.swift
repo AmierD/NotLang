@@ -8,7 +8,6 @@
 // TODO: Make show all translations button smart to when all are shown or hidden already
 
 import SwiftUI
-import WrappingHStack
 
 struct PostRowView: View, Identifiable {
     @Environment(\.modelContext) var modelContext
@@ -17,6 +16,7 @@ struct PostRowView: View, Identifiable {
     @State private var liked = false
     @State private var hiddenButtonActive = false
     @State private var showAllTranslations = false
+    let profilePicColor = Color.randomNonWhite()
 
     var firstletter: String {
         String(post.author.first ?? "X")
@@ -31,7 +31,7 @@ struct PostRowView: View, Identifiable {
             HStack {
                 ZStack {
                     Circle()
-                        .foregroundStyle(Color.randomNonWhite())
+                        .foregroundStyle(profilePicColor)
                     Text(firstletter)
                         .foregroundStyle(.white)
                         .font(.title)
