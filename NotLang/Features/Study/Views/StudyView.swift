@@ -138,7 +138,7 @@ struct StudyView: View {
     }
 
     private func submit(
-        _ difficulty: StudyViewModel.Difficulty,
+        _ difficulty: SpacedRepetitionScheduler.Difficulty,
         for chunk: SavedChunk
     ) {
         // Perform review update via the view model

@@ -16,13 +16,17 @@ class SavedChunk: Identifiable {
     var text: String
     var translation: String
 
-    /// Spaced repetition: days until the next review
+    /// Days to wait between reviews. See ``SpacedRepetitionScheduler``.
+    ///
+    /// `0` means the chunk has never been reviewed.
     var interval: Int
-    /// Spaced repetition: number of consecutive successful reviews
+    /// Number of consecutive successful reviews, reset by a failed recall.
     var repetition: Int
-    /// Spaced repetition: ease multiplier for scheduling (starts at 2.5)
+    /// Per-chunk ease multiplier used to grow ``interval``, clamped to `1.3...3.5`.
+    ///
+    /// Starts at `2.5` and drifts up or down as the chunk proves easy or hard.
     var easeFactor: Double
-    /// The date when this chunk is due for review
+    /// The date this chunk next falls due for review.
     var nextReviewDate: Date
 
     var cleanedText: String {
