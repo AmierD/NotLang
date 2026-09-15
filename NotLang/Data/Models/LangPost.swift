@@ -22,7 +22,7 @@ struct LangPost: Identifiable, Codable, Post {
 
     /// Helper enum for the curstom intializer used by the JSONDecoder.
     enum CodingKeys: String, CodingKey {
-        case author, topic, content
+        case id, author, topic, content
     }
 
     /// Custom initializer to be used by the JSON Decoder.
@@ -31,7 +31,7 @@ struct LangPost: Identifiable, Codable, Post {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = UUID()
+        self.id = try container.decode(UUID.self, forKey: .id)
 
         self.author = try container.decode(String.self, forKey: .author)
         self.topic = try container.decode(String.self, forKey: .topic)
@@ -47,5 +47,11 @@ struct LangPost: Identifiable, Codable, Post {
         self.author = author
         self.topic = topic
         self.content = content
+    }
+}
+
+extension LangPost: Equatable {
+    nonisolated static func == (lhs: LangPost, rhs: LangPost) -> Bool {
+        lhs.id == rhs.id
     }
 }

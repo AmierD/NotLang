@@ -8,8 +8,11 @@
 import Foundation
 
 class APIService {
-    static let shared = APIService()
-    private init() {}
+    /// Injected so tests can supply a stub session in place of URLSession.
+    private let session: NetworkSession
+    init(session: NetworkSession = URLSession.shared) {
+        self.session = session
+    }
 
     private let baseURL = URL(
         string: "https://twskxofydkyqxgfqhkhs.supabase.co/rest/v1/posts"
@@ -26,7 +29,7 @@ class APIService {
             forHTTPHeaderField: "Authorization"
         )
 
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await self.session.data(for: request)
 
         guard let httpResponse = response as? HTTPURLResponse,
             httpResponse.statusCode == 200

@@ -57,9 +57,10 @@ class FeedViewModel {
     }
 
     func fetchPosts() async {
+        let apiService = APIService()
         isLoading = true
         try? await Task.sleep(for: .seconds(1))
-        let newPosts = try? await APIService.shared.fetchPosts()
+        let newPosts = try? await apiService.fetchPosts()
         assert(newPosts != nil, "fetchPosts failed in FeedViewModel")
 
         self.posts = newPosts ?? [LangPost]()

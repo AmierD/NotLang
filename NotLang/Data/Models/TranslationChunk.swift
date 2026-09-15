@@ -54,3 +54,9 @@ struct TranslationChunk: Identifiable, Hashable, Codable {
         self.translation = translation
     }
 }
+
+extension TranslationChunk: Equatable {
+    nonisolated static func == (lhs: TranslationChunk, rhs: TranslationChunk) -> Bool {
+        lhs.id == rhs.id
+    }
+}
