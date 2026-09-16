@@ -9,8 +9,8 @@ import Foundation
 import Observation
 import SwiftData
 
-@Observable
 /// Handles data to be presented to the feed.
+@Observable
 class FeedViewModel {
     var isLoading: Bool = false
     var posts: [LangPost] = []
