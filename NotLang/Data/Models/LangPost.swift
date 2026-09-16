@@ -11,23 +11,17 @@ import Foundation
 struct LangPost: Identifiable, Codable, Post {
     var id: UUID
 
-    /// The username of the author of the post.
     let author: String
 
-    /// The topic that this post most closely relates to.
     let topic: String
 
-    /// The text content of the post, represented as an array of ``TranslationChunk``s.
     let content: [TranslationChunk]
 
-    /// Helper enum for the curstom intializer used by the JSONDecoder.
     enum CodingKeys: String, CodingKey {
         case id, author, topic, content
     }
 
-    /// Custom initializer to be used by the JSON Decoder.
-    ///
-    /// Allows the JSON to be decoded without an id parameter so that swift can create a UUID for the ``LangPost``.
+    /// Requires an `id` in the payload; decoding throws without one.
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -41,7 +35,6 @@ struct LangPost: Identifiable, Codable, Post {
         )
     }
 
-    /// Intializer for manual creation of ``LangPost`` objects.
     init(author: String, topic: String, content: [TranslationChunk]) {
         self.id = UUID()
         self.author = author
