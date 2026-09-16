@@ -15,7 +15,9 @@ import SwiftUI
  */
 /// A view showcasing a ``TranslationChunk``.
 ///
-/// > Important: Spaces are currently to be implemented as implicit (meaning that spaces are not included in a translation chunk, and as a result all translation chunks are given equal spacing between eachother as dictated by the spacing of the view they are in) to expedite shipment of MVP. However, this should be updated to be explicit so that the LLM can (more reliably) decide spacing.
+/// > Important: Spacing between chunks comes from the containing layout, not
+/// > from the chunk text, so a chunk cannot carry its own leading or trailing
+/// > space.
 struct TranslationChunkView: View {
     @Environment(SavedChunksViewModel.self) var savedChunksViewModel
     @Environment(\.modelContext) var modelContext
