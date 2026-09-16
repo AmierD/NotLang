@@ -7,7 +7,10 @@
 
 import Foundation
 
-/// A protocol for a NotLang post.
+/// The fields common to a post however it is stored.
+///
+/// Implemented by ``LangPost``, decoded from the feed API, and ``SavedPost``,
+/// persisted with SwiftData.
 protocol Post {
     var id: UUID { get set }
 
@@ -17,6 +20,6 @@ protocol Post {
     /// The topic that this post most closely relates to.
     var topic: String { get }
 
-    /// The text content of the post, represented as an array of ``TranslationChunk``s.
+    /// The body of the post, in reading order.
     var content: [TranslationChunk] { get }
 }
