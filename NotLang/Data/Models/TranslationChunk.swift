@@ -7,16 +7,17 @@
 
 import Foundation
 
-/// A model for a singular piece of text in a post.
+/// A single piece of text from a post, paired with its translation.
 ///
-/// Included in this model, in addition to the `text` in the user's set Target Language (TL), is the translation of the `text` to the user's Native Language (NL).
+/// ``text`` is in the learner's target language; ``translation`` is in their
+/// native language.
 struct TranslationChunk: Identifiable, Hashable, Codable {
     var id: UUID = UUID()
 
-    /// Text in the user's TL, represented as a `String`.
+    /// Text in the learner's target language.
     let text: String
 
-    /// Translation of the text in the user's NL, represented as a `String`.
+    /// Translation of ``text`` into the learner's native language.
     let translation: String
 
     let isSaved: Bool = false
@@ -28,14 +29,11 @@ struct TranslationChunk: Identifiable, Hashable, Codable {
         translation.trimmingCharacters(in: .punctuationCharacters)
     }
 
-    /// Helper enum for the curstom intializer used by the JSONDecoder.
     enum CodingKeys: String, CodingKey {
         case text, translation
     }
 
-    /// Custom initializer to be used by the JSON Decoder.
-    ///
-    /// Allows the JSON to be decoded without an id parameter so that swift can create a UUID for the ``TranslationChunk``.
+    /// Assigns a fresh ``id``; the JSON payload does not carry one.
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -47,7 +45,6 @@ struct TranslationChunk: Identifiable, Hashable, Codable {
         )
     }
 
-    /// Intializer for manual creation of ``TranslationChunk`` objects.
     init(text: String, translation: String) {
         self.id = UUID()
         self.text = text
