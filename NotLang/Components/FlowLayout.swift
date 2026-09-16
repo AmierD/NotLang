@@ -7,31 +7,15 @@
 
 import SwiftUI
 
-/// A container view that arranges its subviews in a horizontal flow, wrapping to the next line
-/// when the available width is exceeded.
+/// Arranges its subviews in a horizontal flow, wrapping to the next line when
+/// the proposed width is exceeded.
 ///
-/// `FlowLayout` is particularly useful for tag clouds, word-by-word translations, or any
-/// content where elements have variable widths and need to behave like text wrapping.
+/// Suited to tag clouds, word-by-word translations, and any content whose
+/// elements have variable widths and should wrap like text.
 ///
-/// The layout works by calculating the size of each subview and placing them sequentially
-/// along the x-axis. When a subview's width plus the current x-offset exceeds the
-/// container's proposed width, the layout resets the x-offset and increments the
-/// y-offset by the height of the tallest element in the previous line.
-///
-/// ### Handling Explicit Spaces
-/// To implement explicit spaces (where the space is a property of the data rather than
-/// a constant layout value):
-/// 1. Set the ``spacing`` property to `0`.
-/// 2. Include a space character `" "` at the end of your `TranslationChunk.text` string.
-/// 3. Alternatively, create a `LayoutValueKey` to identify "space" subviews and
-///    conditionally bypass the ``spacing`` logic in the `layout` function.
-///
-/// ### Modification
-/// You can modify this layout to support:
-/// - **Alignment**: Adjust the `currentX` starting position to support center or right alignment.
-/// - **Justification**: Distribute remaining space on a line between elements.
-/// - **Dynamic Spacing**: Use the `Subviews.Indices` to look up specific view types and
-///   apply unique spacing logic.
+/// To make spacing part of the data rather than of the layout, set ``spacing``
+/// to `0` and end each subview's text with a space character.
+// TODO: Support alignment, justification, and per-subview spacing.
 struct FlowLayout: Layout {
     /// The horizontal distance between adjacent subviews.
     var spacing: CGFloat = 3.5
@@ -39,7 +23,6 @@ struct FlowLayout: Layout {
     /// The vertical distance between consecutive lines of subviews.
     var lineSpacing: CGFloat = 4
 
-    /// Calculates the total size required to fit all subviews within the proposed dimensions.
     func sizeThatFits(
         proposal: ProposedViewSize,
         subviews: Subviews,
@@ -49,7 +32,6 @@ struct FlowLayout: Layout {
         return result.size
     }
 
-    /// Assigns positions to each subview based on the calculated flow geometry.
     func placeSubviews(
         in bounds: CGRect,
         proposal: ProposedViewSize,
@@ -66,12 +48,7 @@ struct FlowLayout: Layout {
         }
     }
 
-    /// Internal geometry engine that computes the coordinates for every subview.
-    ///
-    /// - Parameters:
-    ///   - proposal: The size proposed by the parent view.
-    ///   - subviews: The collection of views to be laid out.
-    /// - Returns: A tuple containing an array of `CGPoint` offsets and the total `CGSize` of the layout.
+    /// Computes the offset of every subview and the total size of the layout.
     private func layout(proposal: ProposedViewSize, subviews: Subviews) -> (
         offsets: [CGPoint], size: CGSize
     ) {
